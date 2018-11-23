@@ -13,7 +13,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <thucydides.version>0.9.268</thucydides.version>
         <thucydides.jbehave.version>0.9.268</thucydides.jbehave.version>
-        <webdriver.driver>firefox</webdriver.driver>
+        <webdriver.driver>chrome</webdriver.driver>
     </properties>
 
     <dependencies>
@@ -61,7 +61,10 @@
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>2.11</version>
                 <configuration>
-                    <skip>true</skip>
+
+                    <systemPropertyVariables>
+                        <webdriver.driver>${webdriver.driver}</webdriver.driver>
+                    </systemPropertyVariables>
                 </configuration>
             </plugin>
             <plugin>
@@ -141,7 +144,7 @@
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-site-plugin</artifactId>
-                        <version>3.2</version>
+                        <version>3.7</version>
                         <configuration>
                             <reportPlugins>
                                 <plugin>

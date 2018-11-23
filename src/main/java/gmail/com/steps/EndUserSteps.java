@@ -1,42 +1,32 @@
 package gmail.com.steps;
 
-import gmail.com.pages.DictionaryPage;
+import gmail.com.pages.LoginPage;
+import gmail.com.pages.MainPage;
+import gmail.com.pages.StartPage;
 import net.thucydides.core.annotations.Step;
-import net.thucydides.core.pages.Pages;
 import net.thucydides.core.steps.ScenarioSteps;
-
-import static ch.lambdaj.Lambda.join;
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.containsString;
-import static org.hamcrest.Matchers.hasItem;
 
 public class EndUserSteps extends ScenarioSteps {
 
-    DictionaryPage dictionaryPage;
+    StartPage startPage;
+    LoginPage loginPage;
+    MainPage mainPage;
 
     @Step
-    public void enters(String keyword) {
-        dictionaryPage.enter_keywords(keyword);
+    public void is_the_github_page(String username, String password) {
+        startPage.open();
+        startPage.goToLoginPage();
+        loginPage.signIn(username, password);
+        mainPage.goToYourProfile();
     }
 
     @Step
-    public void starts_search() {
-        dictionaryPage.lookup_terms();
+    public void opens_personal_repositories() {
+        mainPage.goToYourRepositories();
     }
 
     @Step
-    public void should_see_definition(String definition) {
-        assertThat(dictionaryPage.getDefinitions(), hasItem(containsString(definition)));
-    }
-
-    @Step
-    public void is_the_home_page() {
-        dictionaryPage.open();
-    }
-
-    @Step
-    public void looks_for(String term) {
-        enters(term);
-        starts_search();
+    public void amount_of_repositories() {
+        mainPage.printAmountOfRepositories();
     }
 }
